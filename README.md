@@ -62,7 +62,6 @@ If you've already initialized your Git repository locally and you are viewing th
 
 ### 2. Create a Virtual Environment
 It's highly recommended to use a virtual environment to manage project dependencies.
-```bash
 python -m venv venv
 3. Activate the Virtual Environment
 Windows PowerShell:
