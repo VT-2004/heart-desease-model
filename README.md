@@ -63,7 +63,7 @@ If you've already initialized your Git repository locally and you are viewing th
 ### 2. Create a Virtual Environment
 It's highly recommended to use a virtual environment to manage project dependencies.
 python -m venv venv
-3. Activate the Virtual Environment
+### 3. Activate the Virtual Environment
 Windows PowerShell:
 code
 Powershell
@@ -77,12 +77,12 @@ code
 Bash
 source venv/bin/activate
 (Your prompt should now show (venv) indicating the environment is active.)
-4. Install Dependencies
+### 4. Install Dependencies
 Install all required libraries using the requirements.txt file.
 code
 Bash
 pip install -r requirements.txt
-5. Download ML Models and Preprocessors
+### 5. Download ML Models and Preprocessors
 The trained machine learning models and preprocessing pipelines are stored as .pkl files.
 Ensure you have the trained_models directory in your project root, containing:
 heart_disease_models.pkl
@@ -90,13 +90,13 @@ heart_disease_preprocessor.pkl
 imputer_ca.pkl
 imputer_thal.pkl
 If you followed the ML pipeline development in Google Colab, you would have downloaded these files into this folder.
-6. Run the Flask Application
+### 6. Run the Flask Application
 Start the Flask development server.
 code
 Bash
 python app.py
 The application will typically run on http://127.0.0.1:5000. Open this URL in your web browser.
-7. Run with Gunicorn (Production Test - Optional for Local)
+### 7. Run with Gunicorn (Production Test - Optional for Local)
 To test how your application would run in a production environment (using Gunicorn), ensure Gunicorn is installed (pip install gunicorn) and run:
 code
 Bash
