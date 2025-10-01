@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %}About Us - Heart Disease Prediction{% endblock %}
+
+{% block content %}
+    <h2>About Our Project</h2>
+    <div class="info-section">
+        <h3>Project Overview</h3>
+        <p>This project is an end-to-end heart disease prediction system that leverages machine learning to assess a patient's risk of developing heart disease based on various health parameters.</p>
+        <p>Developed as a demonstration of machine learning application in healthcare, the system provides a user-friendly interface for inputting health data and receiving an immediate, multi-model prediction report.</p>
+
+        <h3>Machine Learning Algorithms Used</h3>
+        <p>Our system employs a suite of diverse machine learning algorithms to provide comprehensive predictions. Each model brings a unique approach to pattern recognition, contributing to a more robust assessment:</p>
+        <ul>
+            <li><strong>Logistic Regression:</strong> A foundational statistical model for binary classification, known for its interpretability.</li>
+            <li><strong>K-Nearest Neighbors (KNN):</strong> A non-parametric, instance-based learning algorithm that classifies based on the majority class of its nearest neighbors.</li>
+            <li><strong>Support Vector Machine (SVM):</strong> A powerful model that finds an optimal hyperplane to separate data points into classes.</li>
+            <li><strong>Decision Tree:</strong> A tree-like model that makes decisions based on feature values, easy to visualize and understand.</li>
+            <li><strong>Random Forest:</strong> An ensemble method that builds multiple decision trees and combines their outputs for improved accuracy and robustness. This model generally showed the highest accuracy in our evaluations.</li>
+        </ul>
+
+        <h3>Technical Stack</h3>
+        <p>The system is built using a modern Python-based stack:</p>
+        <ul>
+            <li><strong>Machine Learning:</strong> Scikit-learn, Pandas, NumPy</li>
+            <li><strong>Web Framework:</strong> Flask</li>
+            <li><strong>User Interface:</strong> HTML5, CSS3</li>
+            <li><strong>Development Environment:</strong> Google Colab (for ML training), Local Python Environment (for Flask app)</li>
+        </ul>
+
+        <h3>Our Goal</h3>
+        <p>Our primary goal is to showcase the potential of machine learning in assisting preliminary risk assessment for heart disease. While this tool provides data-driven predictions, it is designed for educational and demonstrative purposes only.</p>
+    </div>
+{% endblock %}

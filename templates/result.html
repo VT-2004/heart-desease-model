@@ -1,0 +1,159 @@
+{% extends "base.html" %}
+
+{% block title %}Prediction Result - Heart Disease Prediction{% endblock %}
+
+{% block head_extra %}
+    <style>
+        /* Result page specific styling */
+        .error-message {
+            color: #dc3545; /* Danger red */
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .result-section {
+            margin-top: 30px;
+            padding: 25px;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            background-color: #fefefe;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        .result-section h3 {
+            color: #0056b3;
+            margin-top: 0;
+            border-bottom: 1px solid #e0e0e0;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            font-size: 1.4em;
+        }
+
+        .user-details-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr; /* Two columns for user details */
+            gap: 10px 20px;
+        }
+
+        .user-details-grid p {
+            margin: 5px 0;
+        }
+
+        .prediction-overall {
+            font-size: 1.8em;
+            font-weight: bold;
+            text-align: center;
+            margin: 25px 0;
+            padding: 15px;
+            border-radius: 8px;
+            background-color: #e9ecef;
+        }
+        .prediction-overall.high-risk { color: #dc3545; background-color: #fdf2f2; border: 1px solid #f5c6cb; }
+        .prediction-overall.low-risk { color: #28a745; background-color: #f2fdf2; border: 1px solid #c6f5cb; }
+
+        .prediction-detail ul {
+            list-style: none;
+            padding: 0;
+        }
+        .prediction-detail li {
+            background-color: #ffffff;
+            margin-bottom: 10px;
+            padding: 15px 20px;
+            border-left: 6px solid;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 1px 5px rgba(0,0,0,0.08);
+        }
+        .prediction-detail li strong {
+            color: #333;
+            font-size: 1.1em;
+        }
+        .prediction-detail li.high-chance { border-left-color: #dc3545; }
+        .prediction-detail li.low-chance { border-left-color: #28a745; }
+
+        .high-chance-text { color: #dc3545; font-weight: bold; }
+        .low-chance-text { color: #28a745; font-weight: bold; }
+
+        .back-button {
+            display: block;
+            width: fit-content;
+            margin: 40px auto 20px; /* More margin */
+            padding: 12px 30px;
+            background-color: #6c757d; /* Secondary grey */
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 1.1em;
+            transition: background-color 0.3s ease;
+        }
+        .back-button:hover {
+            background-color: #5a6268;
+        }
+
+        /* Responsive adjustments for user details grid */
+        @media (max-width: 768px) {
+            .user-details-grid {
+                grid-template-columns: 1fr; /* Single column on smaller screens */
+            }
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <h2>Prediction Results</h2>
+
+    {% if error_message %}
+        <p class="error-message">{{ error_message }}</p>
+    {% else %}
+        <div class="result-section">
+            <h3>Your Entered Details:</h3>
+            <div class="user-details-grid">
+                <p><strong>Age:</strong> {{ user_input.age }}</p>
+                <p><strong>Sex:</strong> {{ "Male" if user_input.sex == 1 else "Female" }}</p>
+                <p><strong>Chest Pain Type:</strong> {{ user_input.cp_text }}</p>
+                <p><strong>Resting Blood Pressure:</strong> {{ user_input.trestbps }} mm Hg</p>
+                <p><strong>Serum Cholestoral:</strong> {{ user_input.chol }} mg/dl</p>
+                <p><strong>Fasting Blood Sugar > 120 mg/dl:</strong> {{ "Yes" if user_input.fbs == 1 else "No" }}</p>
+                <p><strong>Resting Electrocardiographic Results:</strong> {{ user_input.restecg_text }}</p>
+                <p><strong>Max Heart Rate Achieved:</strong> {{ user_input.thalach }} bpm</p>
+                <p><strong>Exercise Induced Angina:</strong> {{ "Yes" if user_input.exang == 1 else "No" }}</p>
+                <p><strong>ST Depression:</strong> {{ user_input.oldpeak }}</p>
+                <p><strong>Slope of the Peak Exercise ST Segment:</strong> {{ user_input.slope_text }}</p>
+                <p><strong>Number of Major Vessels:</strong> {{ user_input.ca | int }}</p> {# Display as int #}
+                <p><strong>Thalassemia:</strong> {{ user_input.thal_text }}</p>
+            </div>
+        </div>
+
+        <div class="result-section">
+            <h3>Overall Prediction:</h3>
+            {% set overall_class = 'high-risk' if overall_prediction_percentage > 50 else 'low-risk' %}
+            <p class="prediction-overall {{ overall_class }}">
+                {{ 'High Chance of Heart Disease' if overall_prediction_percentage > 50 else 'Low Chance of Heart Disease' }} ({{ "%.2f"|format(overall_prediction_percentage) }}%)
+            </p>
+        </div>
+
+        <div class="result-section prediction-detail">
+            <h3>Detailed Model Predictions:</h3>
+            <ul>
+                {% for model_name, result in detailed_predictions.items() %}
+                    {% set model_class = 'high-chance' if result.prediction == 1 else 'low-chance' %}
+                    <li>
+                        <strong>{{ model_name }}:</strong>
+                        <span class="{{ model_class }}">
+                            {{ 'High Chance' if result.prediction == 1 else 'Low Chance' }} ({{ "%.2f"|format(result.probability * 100) }}%)
+                        </span>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %} {# End of if error_message #}
+
+    <a href="/" class="back-button">Go Back to Input Form</a>
+{% endblock %}

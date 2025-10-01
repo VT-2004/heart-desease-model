@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Heart Disease Prediction{% endblock %}</title>
+    <!-- Link to your main CSS file -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    {% block head_extra %}{% endblock %} {# Placeholder for extra head content like page-specific styles #}
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Heart Disease Prediction System</h1>
+            <nav>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/about">About Us</a></li>
+                    <li><a href="/disclaimer">Disclaimer</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        {% block content %}{% endblock %} {# This is where page-specific content will go #}
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; <span id="current-year"></span> Heart Disease Prediction. All rights reserved.</p>
+        </div>
+    </footer>
+
+    {% block scripts_extra %}{% endblock %} {# Placeholder for extra JS scripts, where index.html will put its script.js link #}
+    <script>
+        // Set the current year dynamically in the footer
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>

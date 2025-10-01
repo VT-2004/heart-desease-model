@@ -1,0 +1,155 @@
+{% extends "base.html" %}
+
+{% block title %}Patient Data Input - Heart Disease Prediction{% endblock %}
+
+{% block head_extra %}
+    <style>
+        /* Page-specific form styling for better readability */
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr; /* Two columns */
+            gap: 20px;
+        }
+        .form-group {
+            margin-bottom: 5px; /* Adjust margin as grid handles spacing */
+        }
+        .form-group label {
+            display: block; /* Label above input */
+            margin-bottom: 8px; /* More space between label and input */
+            font-weight: bold;
+            color: #555;
+        }
+        .form-group input[type="number"],
+        .form-group select {
+            width: 100%; /* Full width within its grid cell */
+            padding: 10px;
+            border: 1px solid #ced4da; /* Consistent border */
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 1em;
+        }
+        .full-width-button {
+            grid-column: 1 / -1; /* Make the button span all columns */
+            margin-top: 20px;
+        }
+
+        /* Responsive adjustments for the form grid */
+        @media (max-width: 768px) {
+            .form-grid {
+                grid-template-columns: 1fr; /* Single column on smaller screens */
+            }
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <h2>Patient Data Input</h2>
+    <form action="/predict" method="post">
+        <div class="form-grid">
+            <!-- Numerical Features -->
+            <div class="form-group">
+                <label for="age">Age (years):</label>
+                <input type="number" id="age" name="age" min="1" max="120" required>
+                <span class="error-message-client"></span>
+            </div>
+            <div class="form-group">
+                <label for="sex">Sex:</label>
+                <select id="sex" name="sex" required>
+                    <option value="1">Male</option>
+                    <option value="0">Female</option>
+                </select>
+                <span class="error-message-client"></span>
+            </div>
+            <div class="form-group">
+                <label for="trestbps">Resting Blood Pressure (mm Hg):</label>
+                <input type="number" id="trestbps" name="trestbps" min="80" max="200" required>
+                <span class="error-message-client"></span>
+            </div>
+            <div class="form-group">
+                <label for="chol">Serum Cholestoral (mg/dl):</label>
+                <input type="number" id="chol" name="chol" min="100" max="600" required>
+                <span class="error-message-client"></span>
+            </div>
+            <div class="form-group">
+                <label for="thalach">Max Heart Rate Achieved:</label>
+                <input type="number" id="thalach" name="thalach" min="60" max="220" required>
+                <span class="error-message-client"></span>
+            </div>
+            <div class="form-group">
+                <label for="oldpeak">ST Depression (induced by exercise relative to rest):</label>
+                <input type="number" id="oldpeak" name="oldpeak" step="0.1" min="0.0" max="6.2" required>
+                <span class="error-message-client"></span>
+            </div>
+
+            <!-- Categorical Features -->
+            <div class="form-group">
+                <label for="cp">Chest Pain Type:</label>
+                <select id="cp" name="cp" required>
+                    <option value="1">Typical Angina</option>
+                    <option value="2">Atypical Angina</option>
+                    <option value="3">Non-anginal Pain</option>
+                    <option value="4">Asymptomatic</option>
+                </select>
+                <span class="error-message-client"></span>
+            </div>
+            <div class="form-group">
+                <label for="fbs">Fasting Blood Sugar > 120 mg/dl:</label>
+                <select id="fbs" name="fbs" required>
+                    <option value="1">Yes</option>
+                    <option value="0">No</option>
+                </select>
+                <span class="error-message-client"></span>
+            </div>
+            <div class="form-group">
+                <label for="restecg">Resting Electrocardiographic Results:</label>
+                <select id="restecg" name="restecg" required>
+                    <option value="0">Normal</option>
+                    <option value="1">ST-T wave abnormality</option>
+                    <option value="2">Probable/definite left ventricular hypertrophy</option>
+                </select>
+                <span class="error-message-client"></span>
+            </div>
+            <div class="form-group">
+                <label for="exang">Exercise Induced Angina:</label>
+                <select id="exang" name="exang" required>
+                    <option value="1">Yes</option>
+                    <option value="0">No</option>
+                </select>
+                <span class="error-message-client"></span>
+            </div>
+            <div class="form-group">
+                <label for="slope">Slope of the Peak Exercise ST Segment:</label>
+                <select id="slope" name="slope" required>
+                    <option value="1">Upsloping</option>
+                    <option value="2">Flat</option>
+                    <option value="3">Downsloping</option>
+                </select>
+                <span class="error-message-client"></span>
+            </div>
+            <div class="form-group">
+                <label for="ca">Number of Major Vessels (0-3) colored by fluoroscopy:</label>
+                <select id="ca" name="ca" required>
+                    <option value="0">0</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                </select>
+                <span class="error-message-client"></span>
+            </div>
+            <div class="form-group">
+                <label for="thal">Thalassemia:</label>
+                <select id="thal" name="thal" required>
+                    <option value="3">Normal</option>
+                    <option value="6">Fixed defect</option>
+                    <option value="7">Reversible defect</option>
+                </select>
+                <span class="error-message-client"></span>
+            </div>
+        </div>
+        <button type="submit" class="full-width-button">Get Prediction</button>
+    </form>
+{% endblock %}
+
+{% block scripts_extra %} {# ADD THIS BLOCK #}
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+{% endblock %}
