@@ -31,30 +31,28 @@ All trained models, along with the data preprocessors (StandardScaler, OneHotEnc
 
 ## Project Structure
 heart_disease_prediction/
-├── app.py # Main Flask application file
-├── requirements.txt # List of Python dependencies
-├── README.md # Project description, setup, and run instructions
-├── trained_models/ # Directory to store all saved ML artifacts
-│ ├── heart_disease_models.pkl # Contains all trained ML models (dict of pipelines)
-│ ├── heart_disease_preprocessor.pkl # The fitted ColumnTransformer
-│ ├── imputer_ca.pkl # Imputer for 'ca' column
-│ └── imputer_thal.pkl # Imputer for 'thal' column
-├── templates/ # Directory for HTML templates (Jinja2)
-│ ├── base.html # Base template for consistent layout
-│ ├── index.html # Homepage with input form
-│ ├── result.html # Page to display prediction results
-│ ├── about.html # About Us page
-│ └── disclaimer.html # Disclaimer page
-├── static/ # Directory for static assets (CSS, JS, images)
-│ ├── css/
-│ │ └── style.css # Custom CSS styles
-│ └── js/
-│ └── script.js # Client-side JavaScript for validation/UX
-├── notebooks/ # (Optional) Directory for Jupyter/Colab notebooks
-└── heart_disease_ml_pipeline.ipynb # Your Colab notebook with ML code
-└── Procfile # Declares process types for deployment (e.g., Heroku, Render)
-code
-Code
+├── app.py
+├── requirements.txt
+├── README.md
+├── trained_models/
+│   ├── heart_disease_models.pkl
+│   ├── heart_disease_preprocessor.pkl
+│   ├── imputer_ca.pkl
+│   └── imputer_thal.pkl
+├── templates/
+│   ├── base.html
+│   ├── index.html
+│   ├── result.html
+│   ├── about.html
+│   └── disclaimer.html
+├── static/
+│   ├── css/
+│   │   └── style.css
+│   └── js/
+│       └── script.js
+├── notebooks/
+│   └── heart_disease_ml_pipeline.ipynb
+└── Procfile
 ## Setup and Local Development
 
 ### 1. Clone the Repository (After initial Git setup)
